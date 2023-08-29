@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+
+# json2emails.py
+# @2023 AtamaokaC
+# Python Party of Osaka University Medical School, Japan
+# License: GNU General Public License v3
+
 import json
 import sys
 
