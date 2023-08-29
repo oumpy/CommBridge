@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+
+# emails2mattermost.py
+# @2023 AtamaokaC
+# Python Party of Osaka University Medical School, Japan
+# License: GNU General Public License v3
+
 import requests
 import yaml
 import sys
