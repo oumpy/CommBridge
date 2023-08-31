@@ -58,7 +58,7 @@ def main():
             json.dump({'last_received_time': last_received_time}, f)
         return
 
-    query = f"after:{int(last_received_time)//1000}"
+    query = f"after:{int(last_received_time)//1000} in:inbox"
     if args.include_sent:
         query += " OR in:sent"
 
