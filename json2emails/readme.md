@@ -1,11 +1,11 @@
-# json2emails.py
+# json2emails
 
-Converts the JSON output of `fetchgmail.py` to plain text, separating multiple emails with `\v`.
+Converts the JSON output of `fetchgmail` to plain text, separating multiple emails with `\v`.
 
 ## Usage
 
 ```bash
-cat all_messages.json | python3 json2emails.py
+$ cat all_messages.json | json2emails
 ```
 
 ## Copyright & License
