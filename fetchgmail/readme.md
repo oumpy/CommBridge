@@ -18,6 +18,16 @@ Run the script without any arguments:
 $ fetchgmail
 ```
 
+### Options
+
+#### --include-sent
+
+Include this flag to also fetch sent emails alongside the received ones.
+
+```bash
+$ fetchgmail --include-sent
+```
+
 ## Copyright & License
 @2023 AtamaokaC  
 Python Party of Osaka University Medical School, Japan
