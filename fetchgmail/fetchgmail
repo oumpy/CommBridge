@@ -69,6 +69,8 @@ def main():
     if messages:
         for msg in messages:
             full_msg = service.users().messages().get(userId='me', id=msg['id'], format='full').execute()
+            if int(full_msg.get('internalDate', 0)) <= int(last_received_time):
+                continue  # Skip messages older or equal to last_received_time
             headers = {k['name']: k['value'] for k in full_msg['payload']['headers']}
             
             unique_key = f"{headers.get('From', '')}-{headers.get('To', '')}-{headers.get('Subject', '')}-{full_msg.get('internalDate', '')}"
