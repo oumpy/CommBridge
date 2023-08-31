@@ -1,4 +1,4 @@
-# emails2mattermost.py
+# emails2mattermost
 
 Takes plain text email information and posts it to a designated Mattermost channel.
 It can handle multiple emails separated by the escape sequence `\v`.
@@ -24,7 +24,7 @@ channel_name: "your_channel_name_here"
 The script accepts emails in plain text format separated by \v from stdin:
 
 ```bash
-cat email_messages.txt | python3 emails2mattermost.py
+$ cat email_messages.txt | emails2mattermost
 ```
 
 ## Input Format
