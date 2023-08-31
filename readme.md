@@ -1,7 +1,15 @@
 # CommBridge
 
-CommBridge is a suite of scripts designed to fetch emails from a Gmail account and post them to a Mattermost channel.
-The project aims to be extensible for future integrations beyond Gmail and Mattermost.
+A modular toolset designed to fetch, convert, and post email messages from various sources to different communication platforms.
+Initially supporting Gmail and Mattermost.
+
+## Usage Example
+
+You can pipe the outputs of these scripts as follows:
+
+```bash
+python3 fetchgmail.py | python3 json2emails.py | python3 emails2mattermost.py
+```
 
 ## Components
 
