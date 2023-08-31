@@ -21,15 +21,15 @@ channel_name: "your_channel_name_here"
 
 ## Usage
 
-The script accepts emails in plain text format separated by \v from stdin:
+The script accepts emails in plain text format separated by `\v` from stdin:
 
 ```bash
-$ cat messages.txt | emails2mattermost
+$ cat messages.txt | post2mattermost
 ```
 
 ## Input Format
 
-The script expects multiple texts to be separated by the escape sequence \v.
+The script expects multiple texts to be separated by the escape sequence `\v`.
 
 ## Copyright & License
 
