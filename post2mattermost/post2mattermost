@@ -12,6 +12,11 @@ import sys
 import os
 
 def main():
+    input_text = sys.stdin.read()
+    
+    if not input_text.strip():  # Check for empty input
+        return
+
     # Load YAML configuration file
     with open(os.path.expanduser("~/.post2mattermost/config.yaml"), "r") as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
@@ -30,6 +35,7 @@ def main():
     if response.status_code != 200:
         print(f"Failed to get team ID: {response.json().get('message')}", file=sys.stderr)
         return
+
     team_id = response.json()["id"]
 
     # Get channel ID from channel name
@@ -37,15 +43,15 @@ def main():
     if response.status_code != 200:
         print(f"Failed to get channel ID: {response.json().get('message')}", file=sys.stderr)
         return
+
     channel_id = response.json()["id"]
+    messages = input_text.split("\v")
 
-    emails_text = sys.stdin.read().split("\v")
-
-    for email in emails_text:
-        payload = {'channel_id': channel_id, 'message': email}
-        response = requests.post(f"{server_url}:{port}/api/v4/posts", headers=headers, json=payload)
+    for message in messages:
+        payload = {'channel_id': channel_id, 'message': message}
+        response = requests.post(f"{base_url}/posts", headers=headers, json=payload)
         if response.status_code != 201:
-            print(f"Failed to post message: {response.content}")
+            print(f"Failed to post message: {response.content}", file=sys.stderr)
 
 if __name__ == "__main__":
     main()
