@@ -8,14 +8,14 @@ Initially supporting Gmail and Mattermost.
 You can pipe the outputs of these scripts as follows:
 
 ```bash
-python3 fetchgmail.py | python3 json2emails.py | python3 emails2mattermost.py
+$ fetchgmail | json2emails | emails2mattermost
 ```
 
 ## Components
 
-- **fetchgmail.py**: Fetches emails from a Gmail account
-- **json2emails.py**: Converts JSON email data to plain text
-- **emails2mattermost.py**: Posts plain text emails to a Mattermost channel
+- **fetchgmail**: Fetches emails from a Gmail account
+- **json2emails**: Converts JSON email data to plain text
+- **emails2mattermost**: Posts plain text emails to a Mattermost channel
 
 ## Installation and Configuration
 
