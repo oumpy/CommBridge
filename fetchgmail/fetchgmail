@@ -36,13 +36,16 @@ def get_service(token_path, creds_path):
 
     return build('gmail', 'v1', credentials=creds)
 
-def main(args):
+def main():
+    parser = argparse.ArgumentParser(description="Fetch Gmail messages.")
+    parser.add_argument("--include-sent", help="Include sent messages.", action="store_true")
+    args = parser.parse_args()
+
     home_dir = os.path.expanduser("~")
     token_path = os.path.join(home_dir, ".fetchgmail", "token.json")
     creds_path = os.path.join(home_dir, ".fetchgmail", "credentials.json")
     last_time_path = os.path.join(home_dir, ".fetchgmail", "last_received_time.json")
 
-    # Initialize Gmail API
     service = get_service(token_path, creds_path)
 
     try:
@@ -57,25 +60,27 @@ def main(args):
 
     query = f"after:{int(last_received_time)//1000}"
     if args.include_sent:
-        query += " in:inbox OR in:sent"
+        query += " OR in:sent"
 
     results = service.users().messages().list(userId='me', q=query).execute()
     messages = results.get('messages', [])
 
-    all_messages = []
+    unique_messages = {}
     if messages:
-        for msg_id in messages:
-            msg = service.users().messages().get(userId='me', id=msg_id['id'], format='full').execute()
-            all_messages.append(msg)
+        for msg in messages:
+            full_msg = service.users().messages().get(userId='me', id=msg['id'], format='full').execute()
+            headers = {k['name']: k['value'] for k in full_msg['payload']['headers']}
+            
+            unique_key = f"{headers.get('From', '')}-{headers.get('To', '')}-{headers.get('Subject', '')}-{full_msg.get('internalDate', '')}"
+            if unique_key not in unique_messages or 'in:sent' in full_msg['labelIds']:
+                unique_messages[unique_key] = full_msg
 
-        last_received_time = max(message['internalDate'] for message in all_messages)
+        last_received_time = max(message['internalDate'] for message in unique_messages.values())
         with open(last_time_path, 'w') as f:
             json.dump({'last_received_time': last_received_time}, f)
 
-    print(json.dumps(all_messages, indent=4))
+    sorted_messages = sorted(unique_messages.values(), key=lambda x: x['internalDate'])
+    print(json.dumps(sorted_messages, indent=4))
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Fetch Gmail messages.')
-    parser.add_argument('--include-sent', action='store_true', help='Include sent messages in the fetch.')
-    args = parser.parse_args()
-    main(args)
+    main()
