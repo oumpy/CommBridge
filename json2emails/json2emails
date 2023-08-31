@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-
-# json2emails.py
+#
+# json2emails
+#
 # @2023 AtamaokaC
 # Python Party of Osaka University Medical School, Japan
 # License: GNU General Public License v3
@@ -20,6 +21,8 @@ def main():
  
         if 'cc' in email and email['cc']:
             email_text.append(f"Cc: {email['cc']}")
+        if 'bcc' in email and email['bcc']:
+            email_text.append(f"Bcc: {email['bcc']}")
 
         email_text.append(f"Subject: {email['subject']}")
         email_text.append(email['body'].replace("\v", "\n"))
