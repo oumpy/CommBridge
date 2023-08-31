@@ -23,7 +23,7 @@ $ fetchgmail | json2emails | post2mattermost
 2. Follow the setup instructions for each script, located in their respective directories.
 3. Install required Python packages, usually listed in a `requirements.txt` file.
 
-### Copyright & License
+## Copyright & License
 @2023 AtamaokaC  
 Python Party of Osaka University Medical School, Japan
 
